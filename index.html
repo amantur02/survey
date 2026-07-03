@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Анкета для самой интересной девушки 🐱</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #ffe0f0 0%, #fff5e6 50%, #e0f0ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 30px 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08), 0 0 0 1px rgba(255,255,255,0.5);
+            text-align: center;
+            position: relative;
+        }
+
+        /* Прогресс-бар */
+        .progress-wrapper {
+            margin-bottom: 25px;
+        }
+        .progress-label {
+            font-size: 0.85em;
+            color: #b5a3c9;
+            margin-bottom: 8px;
+        }
+        .progress-bar {
+            background: #e8dff0;
+            border-radius: 20px;
+            height: 8px;
+            width: 100%;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+            height: 100%;
+            border-radius: 20px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .screen { display: none; animation: fadeSlideIn 0.5s ease; }
+        .screen.active { display: block; }
+
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes float {
+            0%,100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.08); }
+            70% { transform: scale(0.95); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes sparkleFloat {
+            0% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-80px) scale(0.3); }
+        }
+
+        h1 {
+            font-size: 1.8em;
+            color: #4a3f6b;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        h2 {
+            font-size: 1.4em;
+            color: #5e548e;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        p {
+            color: #6b5b7b;
+            font-size: 1.05em;
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+        .subtitle {
+            font-size: 0.9em;
+            color: #b5a3c9;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .emoji-big {
+            font-size: 60px;
+            display: block;
+            animation: float 3s ease-in-out infinite;
+            margin-bottom: 15px;
+        }
+        .emoji-medium { font-size: 40px; }
+
+        .quiz-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .quiz-option {
+            background: white;
+            border: 2px solid #e8dff0;
+            border-radius: 18px;
+            padding: 12px 18px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95em;
+            color: #4a3f6b;
+            font-weight: 500;
+            flex: 1 1 140px;
+            max-width: 200px;
+            font-family: inherit;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            text-align: center;
+        }
+        .quiz-option:hover {
+            border-color: #c3b0d6;
+            background: #fdfaff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+        }
+        .quiz-option.selected {
+            border-color: #ff9a9e;
+            background: #fff0f0;
+            box-shadow: 0 0 0 4px rgba(255,154,158,0.2);
+            font-weight: 600;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 18px;
+            border: 2px solid #e8dff0;
+            font-size: 1em;
+            font-family: inherit;
+            background: white;
+            transition: all 0.2s ease;
+            color: #4a3f6b;
+            margin-bottom: 10px;
+            resize: vertical;
+        }
+        .text-input:focus {
+            outline: none;
+            border-color: #ff9a9e;
+            box-shadow: 0 0 0 4px rgba(255,154,158,0.15);
+        }
+
+        input[type="date"] {
+            padding: 14px 18px;
+            border-radius: 18px;
+            border: 2px solid #e8dff0;
+            font-size: 1em;
+            font-family: inherit;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #4a3f6b;
+            margin: 8px;
+        }
+        input[type="date"]:focus {
+            outline: none;
+            border-color: #ff9a9e;
+            box-shadow: 0 0 0 4px rgba(255,154,158,0.15);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            margin: 8px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        .btn-next {
+            background: #d4c5e2;
+            color: #3d2c5e;
+        }
+        .btn-next:hover { background: #c3b0d6; transform: translateY(-2px); }
+        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn-submit {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: #4a2c2c;
+            box-shadow: 0 8px 25px rgba(255,154,158,0.4);
+            padding: 16px 35px;
+            font-size: 1.2em;
+        }
+        .btn-submit:hover { transform: translateY(-3px) scale(1.03); }
+        .btn-submit:active { transform: scale(0.96); }
+        .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        .birthday-hint {
+            background: #fff0f0;
+            border-radius: 15px;
+            padding: 12px 18px;
+            margin: 15px 0;
+            font-size: 0.95em;
+            color: #b55a5a;
+            display: inline-block;
+        }
+
+        .firework {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        @media (max-width: 500px) {
+            .container { padding: 20px 15px; border-radius: 24px; }
+            h1 { font-size: 1.4em; }
+            h2 { font-size: 1.2em; }
+            .quiz-option { font-size: 0.85em; padding: 10px 14px; }
+            .btn { padding: 12px 22px; font-size: 1em; }
+            .emoji-big { font-size: 45px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="appContainer">
+
+        <!-- Прогресс-бар -->
+        <div class="progress-wrapper">
+            <div class="progress-label" id="progressLabel">Вопрос 1 из 21</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- ЭКРАНЫ АНКЕТЫ (будут генерироваться JS) -->
+        <div id="screensContainer"></div>
+
+        <!-- ФИНАЛЬНЫЙ ЭКРАН -->
+        <div class="screen" id="screen-final">
+            <span class="emoji-big" style="animation: bounceIn 0.8s ease;">🎉</span>
+            <h1>Спасибо, что ответила!</h1>
+            <p style="font-size: 1.1em;">
+                Теперь я знаю о тебе чуточку больше 💖<br>
+                Обещаю использовать эту информацию только в благих целях!
+            </p>
+            <p style="font-size: 0.9em; color: #b5a3c9;">
+                P.S. Если что — я уже планирую кое-что интересное... 🐱✨
+            </p>
+            <button class="btn btn-submit" onclick="launchFireworks()">
+                Запустить салют 🎆
+            </button>
+            <canvas id="fireworkCanvas" class="firework" style="display: none;"></canvas>
+        </div>
+
+    </div>
+
+    <!-- Скрытая форма для отправки -->
+    <form id="hiddenForm" action="https://formspree.io/f/mlgyornw" method="POST" style="display: none;">
+        <input type="hidden" name="_subject" value="Новая анкета! 💌">
+    </form>
+
+    <script>
+        // ===== ДАННЫЕ АНКЕТЫ =====
+        const quizData = [
+            // Экран 1 (вопросы 1-3)
+            {
+                title: "🐱 Блок 1: Лёд тронулся",
+                subtitle: "Разогреваемся!",
+                questions: [
+                    {
+                        id: "q1_cat",
+                        text: "1. Кто ты в мире котиков?",
+                        type: "single",
+                        options: [
+                            "🐱 Мурлыкающий комочек — обожаю уют и нежность",
+                            "🐈‍⬛ Чёрный кот — загадочная и своенравная личность",
+                            "🦁 Большая кошка — люблю внимание и быть в центре",
+                            "😼 Кот-ниндзя — прихожу и ухожу, когда захочу"
+                        ]
+                    },
+                    {
+                        id: "q2_friday",
+                        text: "2. Твой идеальный вечер пятницы:",
+                        type: "single",
+                        options: [
+                            "🛁 Ванна, вино и сериал",
+                            "🎮 Гейминг до трёх ночи",
+                            "🪩 Танцы с подругами",
+                            "🍕 Пицца и долгие разговоры на балконе"
+                        ]
+                    },
+                    {
+                        id: "q3_superpower",
+                        text: "3. Что выберешь в качестве суперспособности?",
+                        type: "single",
+                        options: [
+                            "🦸‍♀️ Телепортация",
+                            "🧠 Читать мысли (но только когда захочешь)",
+                            "🐾 Понимать язык животных",
+                            "💤 Высыпаться за 2 часа"
+                        ]
+                    }
+                ]
+            },
+            // Экран 2 (вопросы 4-7)
+            {
+                title: "🍽️ Блок 2: Вкусовщина",
+                subtitle: "Чтобы знать, чем угощать",
+                questions: [
+                    {
+                        id: "q4_cuisine",
+                        text: "4. Любимая кухня:",
+                        type: "single",
+                        options: [
+                            "🍣 Японская",
+                            "🍕 Итальянская",
+                            "🥟 Русская / Домашняя",
+                            "🌮 Мексиканская",
+                            "🥗 Всё равно, главное — компания",
+                            "✨ Другое"
+                        ],
+                        hasOther: true
+                    },
+                    {
+                        id: "q5_drink",
+                        text: "5. Кофе или чай?",
+                        type: "single",
+                        options: [
+                            "☕ Кофе — и побольше!",
+                            "🍵 Чай — у меня целая коллекция",
+                            "🍫 Какао / Горячий шоколад",
+                            "🥤 Ни то, ни другое, я за смузи/сок"
+                        ]
+                    },
+                    {
+                        id: "q6_snack",
+                        text: "6. Лучший перекус в течение дня:",
+                        type: "single",
+                        options: [
+                            "🍫 Шоколадка",
+                            "🍓 Фрукты / Ягоды",
+                            "🥜 Орешки и снэки",
+                            "🍔 Бургер"
+                        ]
+                    },
+                    {
+                        id: "q7_sweet_salty",
+                        text: "7. Сладкое или солёное?",
+                        type: "single",
+                        options: [
+                            "🍰 Только сладкое",
+                            "🍟 Только солёное",
+                            "🥨 Солёная карамель — идеальный баланс",
+                            "🥒 Я за ЗОЖ, увы"
+                        ]
+                    }
+                ]
+            },
+            // Экран 3 (вопросы 8-10)
+            {
+                title: "🎯 Блок 3: Досуг и интересы",
+                subtitle: "Чтобы планировать идеальные выходные",
+                questions: [
+                    {
+                        id: "q8_date",
+                        text: "8. Идеальное свидание — это...",
+                        type: "single",
+                        options: [
+                            "🌳 Прогулка по парку",
+                            "🖼️ Выставка / Музей",
+                            "🍽️ Ресторан с дегустационным сетом",
+                            "🎢 Активный отдых (картинг, скалодром)",
+                            "🎬 Кино под одеялом",
+                            "🃏 Настолки и вино в баре"
+                        ]
+                    },
+                    {
+                        id: "q9_music",
+                        text: "9. Что ты слушаешь, когда никто не видит?",
+                        type: "single",
+                        options: [
+                            "🎸 Рок / Инди",
+                            "🎹 Классика / Джаз",
+                            "🎤 Поп / K-Pop",
+                            "🎧 Подкасты и аудиокниги",
+                            "🤐 Секретная информация"
+                        ]
+                    },
+                    {
+                        id: "q10_weekend",
+                        text: "10. Как проводишь выходные?",
+                        type: "single",
+                        options: [
+                            "🛌 Отсыпаюсь",
+                            "📚 Читаю / Учусь",
+                            "🏃‍♀️ Спорт / Активный отдых",
+                            "🎨 Творчество",
+                            "🧹 Взрослые дела (увы)"
+                        ]
+                    }
+                ]
+            },
+            // Экран 4 (вопросы 11-13)
+            {
+                title: "💭 Блок 4: Ценности и мечты",
+                subtitle: "Заглянем чуть глубже",
+                questions: [
+                    {
+                        id: "q11_values",
+                        text: "11. Что ты ценишь в людях больше всего?",
+                        type: "single",
+                        options: [
+                            "😂 Чувство юмора",
+                            "🤝 Честность и верность",
+                            "🧠 Ум и любознательность",
+                            "🫂 Эмпатия и доброта",
+                            "🔥 Амбиции и страсть к жизни"
+                        ]
+                    },
+                    {
+                        id: "q12_moment",
+                        text: "12. Если бы можно было жить в любом моменте вечно:",
+                        type: "single",
+                        options: [
+                            "🌅 Рассвет на море",
+                            "🎉 Шумная вечеринка с друзьями",
+                            "📖 Уютный вечер с книгой и котом",
+                            "✈️ Момент в путешествии, когда всё впереди"
+                        ]
+                    },
+                    {
+                        id: "q13_life",
+                        text: "13. Какое утверждение ближе всего тебе сейчас?",
+                        type: "single",
+                        options: [
+                            "💫 Строю карьеру и кайфую",
+                            "🧘 В поиске баланса и гармонии",
+                            "🌍 Хочу путешествовать",
+                            "🏡 Хочу построить уютный дом и завести собаку",
+                            "🎯 Иду к большой цели",
+                            "🤷‍♀️ Всё сложно, ещё разбираюсь"
+                        ]
+                    }
+                ]
+            },
+            // Экран 5 (вопросы 14-17)
+            {
+                title: "🔍 Блок 5: Шпионские данные",
+                subtitle: "Самое важное!",
+                questions: [
+                    {
+                        id: "q14_dream_job",
+                        text: "14. Кем ты хотела стать, когда была маленькой?",
+                        type: "text",
+                        placeholder: "Напиши здесь..."
+                    },
+                    {
+                        id: "q15_birthday",
+                        text: "15. 🎂 Когда у тебя день рождения?",
+                        type: "date",
+                        hint: "Кажется, ты говорила, что скоро 26? Я не мог это пропустить 😏"
+                    },
+                    {
+                        id: "q16_colors",
+                        text: "16. Топ-3 твоих любимых цвета (можно выбрать несколько):",
+                        type: "multi",
+                        options: [
+                            "⬜ Белый", "⬛ Чёрный", "🟦 Синий", "🟥 Красный",
+                            "🟩 Зелёный", "🟨 Жёлтый", "🟪 Фиолетовый", "🩷 Розовый",
+                            "🟧 Оранжевый", "🟫 Коричневый"
+                        ],
+                        hasOther: true,
+                        maxSelect: 3
+                    },
+                    {
+                        id: "q17_no_gift",
+                        text: "17. Что тебе точно НЕ стоит дарить?",
+                        type: "multi",
+                        options: [
+                            "💐 Цветы", "🍬 Сладости", "🧸 Мягкие игрушки",
+                            "💍 Украшения", "🎁 Любые сюрпризы — я привереда"
+                        ],
+                        hasOther: true
+                    }
+                ]
+            },
+            // Экран 6 (вопросы 18-21)
+            {
+                title: "🎬 Блок 6: Финишная прямая",
+                subtitle: "Последние штрихи",
+                questions: [
+                    {
+                        id: "q18_movies",
+                        text: "18. Твои любимые фильмы / сериалы:",
+                        type: "text",
+                        placeholder: "Можно несколько, через запятую..."
+                    },
+                    {
+                        id: "q19_allergy",
+                        text: "19. Есть ли у тебя аллергия или что-то, что я должен знать перед ужином?",
+                        type: "text",
+                        placeholder: "Например: орехи, молочка, морепродукты..."
+                    },
+                    {
+                        id: "q20_mood",
+                        text: "20. Лучший способ поднять тебе настроение:",
+                        type: "single",
+                        options: [
+                            "🌸 Прислать смешной мем",
+                            "🎵 Скинуть любимую песню",
+                            "🍩 Принести вкусняшку",
+                            "🤗 Просто обнять",
+                            "🎤 Спою песню (нет, пожалуйста, не надо)",
+                            "✨ Другое"
+                        ],
+                        hasOther: true
+                    },
+                    {
+                        id: "q21_ask_me",
+                        text: "21. Если бы ты могла задать мне любой вопрос, и я бы ответил честно, что бы это было?",
+                        type: "text",
+                        placeholder: "Твой вопрос..."
+                    }
+                ]
+            }
+        ];
+
+        let currentScreenIndex = 0;
+        const totalScreens = quizData.length;
+        const totalQuestions = quizData.reduce((sum, screen) => sum + screen.questions.length, 0);
+        let answeredQuestions = 0;
+
+        // ===== ПОСТРОЕНИЕ ЭКРАНОВ =====
+        const screensContainer = document.getElementById('screensContainer');
+
+        quizData.forEach((screenData, screenIdx) => {
+            const screenDiv = document.createElement('div');
+            screenDiv.className = 'screen' + (screenIdx === 0 ? ' active' : '');
+            screenDiv.id = 'screen-' + screenIdx;
+
+            let html = `<span class="emoji-medium">${screenData.title.split(' ')[0]}</span>`;
+            html += `<h2>${screenData.title}</h2>`;
+            html += `<p class="subtitle">${screenData.subtitle}</p>`;
+
+            screenData.questions.forEach((q) => {
+                html += `<div class="question-block" style="margin-bottom: 20px; text-align: left;">`;
+                html += `<p style="font-weight: 600; margin-bottom: 10px; color: #4a3f6b;">${q.text}</p>`;
+
+                if (q.hint) {
+                    html += `<div class="birthday-hint">${q.hint}</div>`;
+                }
+
+                if (q.type === 'single') {
+                    html += `<div class="quiz-options" data-qid="${q.id}" data-type="single">`;
+                    q.options.forEach(opt => {
+                        html += `<button class="quiz-option" data-value="${opt}" onclick="selectSingle(this, '${q.id}')">${opt}</button>`;
+                    });
+                    html += `</div>`;
+                    if (q.hasOther) {
+                        html += `<input type="text" class="text-input" data-qid="${q.id}-other" placeholder="Свой вариант..." style="display: none; margin-top: 8px;" oninput="updateOtherSingle('${q.id}')">`;
+                    }
+                } else if (q.type === 'multi') {
+                    html += `<div class="quiz-options" data-qid="${q.id}" data-type="multi" data-max="${q.maxSelect || 99}">`;
+                    q.options.forEach(opt => {
+                        html += `<button class="quiz-option" data-value="${opt}" onclick="selectMulti(this, '${q.id}', ${q.maxSelect || 99})">${opt}</button>`;
+                    });
+                    html += `</div>`;
+                    if (q.hasOther) {
+                        html += `<input type="text" class="text-input" data-qid="${q.id}-other" placeholder="Свой вариант..." style="display: none; margin-top: 8px;" oninput="updateMultiOther('${q.id}')">`;
+                    }
+                } else if (q.type === 'text') {
+                    html += `<textarea class="text-input" data-qid="${q.id}" placeholder="${q.placeholder || ''}" rows="2"></textarea>`;
+                } else if (q.type === 'date') {
+                    html += `<input type="date" data-qid="${q.id}" style="margin: 8px 0;">`;
+                }
+
+                html += `</div>`;
+            });
+
+            // Кнопки навигации
+            html += `<div style="margin-top: 20px;">`;
+            if (screenIdx > 0) {
+                html += `<button class="btn btn-next" onclick="prevScreen(${screenIdx})">👈 Назад</button>`;
+            }
+            if (screenIdx < totalScreens - 1) {
+                html += `<button class="btn btn-next" id="btnNext-${screenIdx}" onclick="nextScreen(${screenIdx})" disabled>Дальше 👉</button>`;
+            } else {
+                html += `<button class="btn btn-submit" id="btnSubmit" onclick="submitForm()" disabled>Отправить анкету 💌</button>`;
+            }
+            html += `</div>`;
+
+            screenDiv.innerHTML = html;
+            screensContainer.appendChild(screenDiv);
+        });
+
+        // ===== ЛОГИКА ВЫБОРА =====
+        const answers = {};
+
+        function selectSingle(btn, qid) {
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+            btn.classList.add('selected');
+            answers[qid] = btn.dataset.value;
+
+            // Показываем/скрываем поле "Другое"
+            const otherInput = document.querySelector(`[data-qid="${qid}-other"]`);
+            if (otherInput) {
+                if (btn.dataset.value.includes('Другое') || btn.dataset.value.includes('Свой вариант')) {
+                    otherInput.style.display = 'block';
+                    if (otherInput.value) answers[qid] = otherInput.value;
+                } else {
+                    otherInput.style.display = 'none';
+                }
+            }
+            checkScreenCompletion(getCurrentScreenIndex());
+        }
+
+        function updateOtherSingle(qid) {
+            const otherInput = document.querySelector(`[data-qid="${qid}-other"]`);
+            if (otherInput && otherInput.value) {
+                answers[qid] = otherInput.value;
+            }
+            checkScreenCompletion(getCurrentScreenIndex());
+        }
+
+        function selectMulti(btn, qid, maxSelect) {
+            const parent = btn.parentElement;
+            const selected = parent.querySelectorAll('.quiz-option.selected');
+            if (btn.classList.contains('selected')) {
+                btn.classList.remove('selected');
+            } else {
+                if (selected.length >= maxSelect && maxSelect > 0) {
+                    // Убираем первый выбранный
+                    selected[0].classList.remove('selected');
+                }
+                btn.classList.add('selected');
+            }
+            const allSelected = parent.querySelectorAll('.quiz-option.selected');
+            answers[qid] = Array.from(allSelected).map(o => o.dataset.value).join(', ');
+
+            // Поле "Другое"
+            const otherInput = document.querySelector(`[data-qid="${qid}-other"]`);
+            if (otherInput) {
+                const hasOther = Array.from(allSelected).some(o =>
+                    o.dataset.value.includes('Другое') || o.dataset.value.includes('Свой вариант')
+                );
+                otherInput.style.display = hasOther ? 'block' : 'none';
+                if (hasOther && otherInput.value) {
+                    answers[qid] = (answers[qid] || '') + ' | Свой вариант: ' + otherInput.value;
+                }
+            }
+            checkScreenCompletion(getCurrentScreenIndex());
+        }
+
+        function updateMultiOther(qid) {
+            const otherInput = document.querySelector(`[data-qid="${qid}-other"]`);
+            if (otherInput && otherInput.value) {
+                const current = answers[qid] || '';
+                if (!current.includes('Свой вариант:')) {
+                    answers[qid] = current + ' | Свой вариант: ' + otherInput.value;
+                } else {
+                    answers[qid] = current.replace(/Свой вариант:.*/, 'Свой вариант: ' + otherInput.value);
+                }
+            }
+            checkScreenCompletion(getCurrentScreenIndex());
+        }
+
+        // Отслеживание текстовых полей
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('text-input')) {
+                const qid = e.target.dataset.qid;
+                if (qid && !qid.includes('-other')) {
+                    answers[qid] = e.target.value;
+                }
+                checkScreenCompletion(getCurrentScreenIndex());
+            }
+            if (e.target.type === 'date') {
+                const qid = e.target.dataset.qid;
+                if (qid) {
+                    answers[qid] = e.target.value;
+                }
+                checkScreenCompletion(getCurrentScreenIndex());
+            }
+        });
+
+        function getCurrentScreenIndex() {
+            const activeScreen = document.querySelector('.screen.active');
+            if (!activeScreen) return 0;
+            const id = activeScreen.id;
+            return parseInt(id.split('-')[1]);
+        }
+
+        function checkScreenCompletion(screenIdx) {
+            const screenData = quizData[screenIdx];
+            let allAnswered = true;
+
+            screenData.questions.forEach(q => {
+                if (q.type === 'single') {
+                    if (!answers[q.id]) allAnswered = false;
+                } else if (q.type === 'multi') {
+                    if (!answers[q.id] || answers[q.id].trim() === '') allAnswered = false;
+                } else if (q.type === 'text') {
+                    if (!answers[q.id] || answers[q.id].trim() === '') allAnswered = false;
+                } else if (q.type === 'date') {
+                    if (!answers[q.id]) allAnswered = false;
+                }
+            });
+
+            const nextBtn = document.getElementById('btnNext-' + screenIdx);
+            const submitBtn = document.getElementById('btnSubmit');
+            if (nextBtn) nextBtn.disabled = !allAnswered;
+            if (submitBtn) submitBtn.disabled = !allAnswered;
+
+            // Обновляем прогресс
+            updateProgress(screenIdx, allAnswered);
+        }
+
+        function updateProgress(screenIdx, screenComplete) {
+            let completed = 0;
+            for (let i = 0; i < totalScreens; i++) {
+                if (i < screenIdx) completed += quizData[i].questions.length;
+                else if (i === screenIdx && screenComplete) completed += quizData[i].questions.length;
+                else if (i === screenIdx) {
+                    // Считаем отвеченные на текущем экране
+                    const screenData = quizData[i];
+                    screenData.questions.forEach(q => {
+                        if (answers[q.id] && answers[q.id].trim() !== '') completed++;
+                    });
+                }
+            }
+            const percent = Math.round((completed / totalQuestions) * 100);
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressLabel').textContent =
+                `Прогресс: ${percent}% (вопросов отвечено: ${completed} из ${totalQuestions})`;
+        }
+
+        // ===== НАВИГАЦИЯ =====
+        function showScreen(index) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            const screen = document.getElementById('screen-' + index);
+            if (screen) screen.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextScreen(currentIdx) {
+            if (currentIdx < totalScreens - 1) {
+                showScreen(currentIdx + 1);
+                // Автоматически отключаем кнопку на новом экране
+                const nextBtn = document.getElementById('btnNext-' + (currentIdx + 1));
+                if (nextBtn) nextBtn.disabled = true;
+                const submitBtn = document.getElementById('btnSubmit');
+                if (submitBtn) submitBtn.disabled = true;
+                updateProgressOnScreenChange(currentIdx + 1);
+            }
+        }
+
+        function prevScreen(currentIdx) {
+            if (currentIdx > 0) {
+                showScreen(currentIdx - 1);
+                updateProgressOnScreenChange(currentIdx - 1);
+            }
+        }
+
+        function updateProgressOnScreenChange(screenIdx) {
+            const screenData = quizData[screenIdx];
+            let completed = 0;
+            for (let i = 0; i < screenIdx; i++) {
+                completed += quizData[i].questions.length;
+            }
+            screenData.questions.forEach(q => {
+                if (answers[q.id] && answers[q.id].trim() !== '') completed++;
+            });
+            const percent = Math.round((completed / totalQuestions) * 100);
+            document.getElementById('progressFill').style.width = percent + '%';
+            document.getElementById('progressLabel').textContent =
+                `Прогресс: ${percent}% (вопросов отвечено: ${completed} из ${totalQuestions})`;
+        }
+
+        // ===== ОТПРАВКА =====
+        function submitForm() {
+            const form = document.getElementById('hiddenForm');
+            // Очищаем предыдущие поля
+            form.querySelectorAll('input:not([type=hidden])').forEach(el => el.remove());
+
+            // Добавляем все ответы
+            for (const [key, value] of Object.entries(answers)) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = value || '';
+                form.appendChild(input);
+            }
+
+            // Отправляем через fetch
+            const formData = new FormData(form);
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                // Показываем финал в любом случае
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                document.getElementById('screen-final').classList.add('active');
+                document.getElementById('progressFill').style.width = '100%';
+                document.getElementById('progressLabel').textContent = 'Готово! 🎉';
+                setTimeout(() => launchFireworks(), 500);
+            }).catch(() => {
+                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+                document.getElementById('screen-final').classList.add('active');
+                document.getElementById('progressFill').style.width = '100%';
+                document.getElementById('progressLabel').textContent = 'Готово! 🎉';
+                setTimeout(() => launchFireworks(), 500);
+            });
+        }
+
+        // ===== САЛЮТ =====
+        function launchFireworks() {
+            const canvas = document.getElementById('fireworkCanvas');
+            canvas.style.display = 'block';
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const ctx = canvas.getContext('2d');
+            const colors = ['#ff9a9e','#fad0c4','#ffb7b2','#ffdac1','#e2f0cb','#b5ead7','#c7ceea','#ffd1dc','#ffe0f0','#ffc3a0','#ff677d','#d4a5a5','#ffdfd3','#fec8d8','#957dad'];
+            const particles = [];
+            const sparkEmojis = ['✨','💖','🐱','🎉','💫','⭐','🌸','💝'];
+
+            function createFirework(x, y) {
+                const count = 40 + Math.floor(Math.random() * 40);
+                for (let i = 0; i < count; i++) {
+                    const angle = (Math.PI * 2 * i) / count + Math.random() * 0.3;
+                    const velocity = 3 + Math.random() * 8;
+                    particles.push({
+                        x, y,
+                        vx: Math.cos(angle) * velocity,
+                        vy: Math.sin(angle) * velocity,
+                        life: 1,
+                        decay: 0.008 + Math.random() * 0.02,
+                        color: colors[Math.floor(Math.random() * colors.length)],
+                        size: 2 + Math.random() * 5,
+                    });
+                }
+                for (let i = 0; i < 6; i++) {
+                    const sparkEl = document.createElement('span');
+                    sparkEl.textContent = sparkEmojis[Math.floor(Math.random() * sparkEmojis.length)];
+                    sparkEl.style.cssText = `position:fixed; left:${x}px; top:${y}px; font-size:${18+Math.random()*30}px; pointer-events:none; z-index:10000; animation:sparkleFloat ${1+Math.random()*1.5}s ease-out forwards;`;
+                    document.body.appendChild(sparkEl);
+                    setTimeout(() => sparkEl.remove(), 2500);
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let alive = false;
+                for (let i = particles.length - 1; i >= 0; i--) {
+                    const p = particles[i];
+                    p.x += p.vx; p.y += p.vy;
+                    p.vy += 0.05;
+                    p.life -= p.decay;
+                    if (p.life <= 0) { particles.splice(i, 1); continue; }
+                    alive = true;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.globalAlpha = p.life;
+                    ctx.fill();
+                    ctx.globalAlpha = 1;
+                }
+                if (alive || particles.length > 0) {
+                    requestAnimationFrame(animate);
+                } else {
+                    canvas.style.display = 'none';
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+
+            const launchPoints = [
+                { x: canvas.width * 0.2, y: canvas.height * 0.6 },
+                { x: canvas.width * 0.5, y: canvas.height * 0.3 },
+                { x: canvas.width * 0.8, y: canvas.height * 0.5 },
+                { x: canvas.width * 0.35, y: canvas.height * 0.25 },
+                { x: canvas.width * 0.65, y: canvas.height * 0.55 },
+            ];
+            launchPoints.forEach((pt, i) => setTimeout(() => createFirework(pt.x, pt.y), i * 250));
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    createFirework(
+                        Math.random() * canvas.width * 0.8 + canvas.width * 0.1,
+                        Math.random() * canvas.height * 0.6 + canvas.height * 0.1
+                    );
+                }, 1200 + i * 400);
+            }
+            animate();
+        }
+
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('fireworkCanvas');
+            if (canvas.style.display === 'block') {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        });
+
+        // Инициализация прогресса
+        updateProgress(0, false);
+    </script>
+</body>
+</html>
