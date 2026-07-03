@@ -30,29 +30,10 @@
             position: relative;
         }
 
-        /* Прогресс-бар */
-        .progress-wrapper {
-            margin-bottom: 25px;
-        }
-        .progress-label {
-            font-size: 0.85em;
-            color: #b5a3c9;
-            margin-bottom: 8px;
-        }
-        .progress-bar {
-            background: #e8dff0;
-            border-radius: 20px;
-            height: 8px;
-            width: 100%;
-            overflow: hidden;
-        }
-        .progress-fill {
-            background: linear-gradient(90deg, #ff9a9e, #fad0c4);
-            height: 100%;
-            border-radius: 20px;
-            transition: width 0.5s ease;
-            width: 0%;
-        }
+        .progress-wrapper { margin-bottom: 25px; }
+        .progress-label { font-size: 0.85em; color: #b5a3c9; margin-bottom: 8px; }
+        .progress-bar { background: #e8dff0; border-radius: 20px; height: 8px; width: 100%; overflow: hidden; }
+        .progress-fill { background: linear-gradient(90deg, #ff9a9e, #fad0c4); height: 100%; border-radius: 20px; transition: width 0.5s ease; width: 0%; }
 
         .screen { display: none; animation: fadeSlideIn 0.5s ease; }
         .screen.active { display: block; }
@@ -76,37 +57,12 @@
             100% { opacity: 0; transform: translateY(-80px) scale(0.3); }
         }
 
-        h1 {
-            font-size: 1.8em;
-            color: #4a3f6b;
-            margin-bottom: 10px;
-            line-height: 1.3;
-        }
-        h2 {
-            font-size: 1.4em;
-            color: #5e548e;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-        p {
-            color: #6b5b7b;
-            font-size: 1.05em;
-            margin-bottom: 18px;
-            line-height: 1.5;
-        }
-        .subtitle {
-            font-size: 0.9em;
-            color: #b5a3c9;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
+        h1 { font-size: 1.8em; color: #4a3f6b; margin-bottom: 10px; line-height: 1.3; }
+        h2 { font-size: 1.4em; color: #5e548e; margin-bottom: 20px; font-weight: 500; }
+        p { color: #6b5b7b; font-size: 1.05em; margin-bottom: 18px; line-height: 1.5; }
+        .subtitle { font-size: 0.9em; color: #b5a3c9; margin-bottom: 20px; font-style: italic; }
 
-        .emoji-big {
-            font-size: 60px;
-            display: block;
-            animation: float 3s ease-in-out infinite;
-            margin-bottom: 15px;
-        }
+        .emoji-big { font-size: 60px; display: block; animation: float 3s ease-in-out infinite; margin-bottom: 15px; }
         .emoji-medium { font-size: 40px; }
 
         .quiz-options {
@@ -114,7 +70,7 @@
             flex-wrap: wrap;
             gap: 10px;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .quiz-option {
             background: white;
@@ -127,7 +83,7 @@
             color: #4a3f6b;
             font-weight: 500;
             flex: 1 1 140px;
-            max-width: 200px;
+            max-width: 220px;
             font-family: inherit;
             box-shadow: 0 4px 10px rgba(0,0,0,0.03);
             text-align: center;
@@ -144,6 +100,26 @@
             box-shadow: 0 0 0 4px rgba(255,154,158,0.2);
             font-weight: 600;
         }
+
+        .other-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 2px solid #e8dff0;
+            font-size: 0.95em;
+            font-family: inherit;
+            background: white;
+            transition: all 0.2s ease;
+            color: #4a3f6b;
+            margin-top: 8px;
+            display: none;
+        }
+        .other-input:focus {
+            outline: none;
+            border-color: #ff9a9e;
+            box-shadow: 0 0 0 4px rgba(255,154,158,0.15);
+        }
+        .other-input.visible { display: block; }
 
         .text-input {
             width: 100%;
@@ -199,7 +175,7 @@
             color: #3d2c5e;
         }
         .btn-next:hover { background: #c3b0d6; transform: translateY(-2px); }
-        .btn-next:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
         .btn-submit {
             background: linear-gradient(135deg, #ff9a9e, #fad0c4);
             color: #4a2c2c;
@@ -207,9 +183,9 @@
             padding: 16px 35px;
             font-size: 1.2em;
         }
-        .btn-submit:hover { transform: translateY(-3px) scale(1.03); }
-        .btn-submit:active { transform: scale(0.96); }
-        .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn-submit:hover:not(:disabled) { transform: translateY(-3px) scale(1.03); }
+        .btn-submit:active:not(:disabled) { transform: scale(0.96); }
+        .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
         .birthday-hint {
             background: #fff0f0;
@@ -220,6 +196,16 @@
             color: #b55a5a;
             display: inline-block;
         }
+        .age-diff {
+            background: #f0f0ff;
+            border-radius: 15px;
+            padding: 10px 16px;
+            margin: 10px 0;
+            font-size: 0.9em;
+            color: #5e548e;
+            display: none;
+        }
+        .age-diff.visible { display: inline-block; }
 
         .firework {
             position: fixed;
@@ -228,6 +214,19 @@
             pointer-events: none;
             z-index: 9999;
         }
+
+        .sending-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.7);
+            z-index: 9998;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5em;
+            color: #4a3f6b;
+        }
+        .sending-overlay.visible { display: flex; }
 
         @media (max-width: 500px) {
             .container { padding: 20px 15px; border-radius: 24px; }
@@ -240,9 +239,12 @@
     </style>
 </head>
 <body>
+    <div class="sending-overlay" id="sendingOverlay">
+        <span>Отправляю анкету... 💫</span>
+    </div>
+
     <div class="container" id="appContainer">
 
-        <!-- Прогресс-бар -->
         <div class="progress-wrapper">
             <div class="progress-label" id="progressLabel">Вопрос 1 из 21</div>
             <div class="progress-bar">
@@ -250,10 +252,8 @@
             </div>
         </div>
 
-        <!-- ЭКРАНЫ АНКЕТЫ (будут генерироваться JS) -->
         <div id="screensContainer"></div>
 
-        <!-- ФИНАЛЬНЫЙ ЭКРАН -->
         <div class="screen" id="screen-final">
             <span class="emoji-big" style="animation: bounceIn 0.8s ease;">🎉</span>
             <h1>Спасибо, что ответила!</h1>
@@ -272,13 +272,10 @@
 
     </div>
 
-    <!-- Скрытая форма для отправки -->
-    <form id="hiddenForm" action="https://formspree.io/f/mlgyornw" method="POST" style="display: none;">
-        <input type="hidden" name="_subject" value="Новая анкета! 💌">
-    </form>
-
     <script>
-        // ===== ДАННЫЕ АНКЕТЫ =====
+        // Дата рождения автора анкеты
+        const MY_BIRTHDAY = new Date(2002, 10, 19); // 19.11.2002 (месяцы с 0)
+
         const quizData = [
             // Экран 1 (вопросы 1-3)
             {
@@ -294,7 +291,8 @@
                             "🐈‍⬛ Чёрный кот — загадочная и своенравная личность",
                             "🦁 Большая кошка — люблю внимание и быть в центре",
                             "😼 Кот-ниндзя — прихожу и ухожу, когда захочу"
-                        ]
+                        ],
+                        hasOther: true
                     },
                     {
                         id: "q2_friday",
@@ -305,7 +303,8 @@
                             "🎮 Гейминг до трёх ночи",
                             "🪩 Танцы с подругами",
                             "🍕 Пицца и долгие разговоры на балконе"
-                        ]
+                        ],
+                        hasOther: true
                     },
                     {
                         id: "q3_superpower",
@@ -316,7 +315,8 @@
                             "🧠 Читать мысли (но только когда захочешь)",
                             "🐾 Понимать язык животных",
                             "💤 Высыпаться за 2 часа"
-                        ]
+                        ],
+                        hasOther: true
                     }
                 ]
             },
@@ -334,8 +334,7 @@
                             "🍕 Итальянская",
                             "🥟 Русская / Домашняя",
                             "🌮 Мексиканская",
-                            "🥗 Всё равно, главное — компания",
-                            "✨ Другое"
+                            "🥗 Всё равно, главное — компания"
                         ],
                         hasOther: true
                     },
@@ -348,7 +347,8 @@
                             "🍵 Чай — у меня целая коллекция",
                             "🍫 Какао / Горячий шоколад",
                             "🥤 Ни то, ни другое, я за смузи/сок"
-                        ]
+                        ],
+                        hasOther: true
                     },
                     {
                         id: "q6_snack",
@@ -359,7 +359,8 @@
                             "🍓 Фрукты / Ягоды",
                             "🥜 Орешки и снэки",
                             "🍔 Бургер"
-                        ]
+                        ],
+                        hasOther: true
                     },
                     {
                         id: "q7_sweet_salty",
@@ -370,7 +371,8 @@
                             "🍟 Только солёное",
                             "🥨 Солёная карамель — идеальный баланс",
                             "🥒 Я за ЗОЖ, увы"
-                        ]
+                        ],
+                        hasOther: true
                     }
                 ]
             },
@@ -390,7 +392,8 @@
                             "🎢 Активный отдых (картинг, скалодром)",
                             "🎬 Кино под одеялом",
                             "🃏 Настолки и вино в баре"
-                        ]
+                        ],
+                        hasOther: true
                     },
                     {
                         id: "q9_music",
@@ -402,7 +405,8 @@
                             "🎤 Поп / K-Pop",
                             "🎧 Подкасты и аудиокниги",
                             "🤐 Секретная информация"
-                        ]
+                        ],
+                        hasOther: true
                     },
                     {
                         id: "q10_weekend",
@@ -414,7 +418,8 @@
                             "🏃‍♀️ Спорт / Активный отдых",
                             "🎨 Творчество",
                             "🧹 Взрослые дела (увы)"
-                        ]
+                        ],
+                        hasOther: true
                     }
                 ]
             },
@@ -425,15 +430,16 @@
                 questions: [
                     {
                         id: "q11_values",
-                        text: "11. Что ты ценишь в людях больше всего?",
-                        type: "single",
+                        text: "11. Что ты ценишь в людях больше всего? (можно выбрать несколько)",
+                        type: "multi",
                         options: [
                             "😂 Чувство юмора",
                             "🤝 Честность и верность",
                             "🧠 Ум и любознательность",
                             "🫂 Эмпатия и доброта",
                             "🔥 Амбиции и страсть к жизни"
-                        ]
+                        ],
+                        hasOther: true
                     },
                     {
                         id: "q12_moment",
@@ -444,7 +450,8 @@
                             "🎉 Шумная вечеринка с друзьями",
                             "📖 Уютный вечер с книгой и котом",
                             "✈️ Момент в путешествии, когда всё впереди"
-                        ]
+                        ],
+                        hasOther: true
                     },
                     {
                         id: "q13_life",
@@ -457,7 +464,8 @@
                             "🏡 Хочу построить уютный дом и завести собаку",
                             "🎯 Иду к большой цели",
                             "🤷‍♀️ Всё сложно, ещё разбираюсь"
-                        ]
+                        ],
+                        hasOther: true
                     }
                 ]
             },
@@ -528,8 +536,7 @@
                             "🎵 Скинуть любимую песню",
                             "🍩 Принести вкусняшку",
                             "🤗 Просто обнять",
-                            "🎤 Спою песню (нет, пожалуйста, не надо)",
-                            "✨ Другое"
+                            "🎤 Спою песню (нет, пожалуйста, не надо)"
                         ],
                         hasOther: true
                     },
@@ -543,10 +550,9 @@
             }
         ];
 
-        let currentScreenIndex = 0;
         const totalScreens = quizData.length;
         const totalQuestions = quizData.reduce((sum, screen) => sum + screen.questions.length, 0);
-        let answeredQuestions = 0;
+        const answers = {};
 
         // ===== ПОСТРОЕНИЕ ЭКРАНОВ =====
         const screensContainer = document.getElementById('screensContainer');
@@ -567,35 +573,37 @@
                 if (q.hint) {
                     html += `<div class="birthday-hint">${q.hint}</div>`;
                 }
+                if (q.type === 'date') {
+                    html += `<div class="age-diff" id="ageDiff"></div>`;
+                }
 
                 if (q.type === 'single') {
                     html += `<div class="quiz-options" data-qid="${q.id}" data-type="single">`;
                     q.options.forEach(opt => {
-                        html += `<button class="quiz-option" data-value="${opt}" onclick="selectSingle(this, '${q.id}')">${opt}</button>`;
+                        html += `<button class="quiz-option" data-value="${escapeHTML(opt)}" onclick="selectSingle(this, '${q.id}')">${opt}</button>`;
                     });
                     html += `</div>`;
                     if (q.hasOther) {
-                        html += `<input type="text" class="text-input" data-qid="${q.id}-other" placeholder="Свой вариант..." style="display: none; margin-top: 8px;" oninput="updateOtherSingle('${q.id}')">`;
+                        html += `<input type="text" class="other-input" data-qid="${q.id}-other" placeholder="✨ Свой вариант..." oninput="updateOtherForSingle('${q.id}')">`;
                     }
                 } else if (q.type === 'multi') {
                     html += `<div class="quiz-options" data-qid="${q.id}" data-type="multi" data-max="${q.maxSelect || 99}">`;
                     q.options.forEach(opt => {
-                        html += `<button class="quiz-option" data-value="${opt}" onclick="selectMulti(this, '${q.id}', ${q.maxSelect || 99})">${opt}</button>`;
+                        html += `<button class="quiz-option" data-value="${escapeHTML(opt)}" onclick="selectMulti(this, '${q.id}', ${q.maxSelect || 99})">${opt}</button>`;
                     });
                     html += `</div>`;
                     if (q.hasOther) {
-                        html += `<input type="text" class="text-input" data-qid="${q.id}-other" placeholder="Свой вариант..." style="display: none; margin-top: 8px;" oninput="updateMultiOther('${q.id}')">`;
+                        html += `<input type="text" class="other-input" data-qid="${q.id}-other" placeholder="✨ Свой вариант..." oninput="updateOtherForMulti('${q.id}')">`;
                     }
                 } else if (q.type === 'text') {
                     html += `<textarea class="text-input" data-qid="${q.id}" placeholder="${q.placeholder || ''}" rows="2"></textarea>`;
                 } else if (q.type === 'date') {
-                    html += `<input type="date" data-qid="${q.id}" style="margin: 8px 0;">`;
+                    html += `<input type="date" data-qid="${q.id}" style="margin: 8px 0;" onchange="onDateChange(this)">`;
                 }
 
                 html += `</div>`;
             });
 
-            // Кнопки навигации
             html += `<div style="margin-top: 20px;">`;
             if (screenIdx > 0) {
                 html += `<button class="btn btn-next" onclick="prevScreen(${screenIdx})">👈 Назад</button>`;
@@ -611,76 +619,127 @@
             screensContainer.appendChild(screenDiv);
         });
 
-        // ===== ЛОГИКА ВЫБОРА =====
-        const answers = {};
+        function escapeHTML(str) {
+            return str.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
 
+        // ===== ЛОГИКА ВЫБОРА =====
         function selectSingle(btn, qid) {
             const parent = btn.parentElement;
             parent.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
             btn.classList.add('selected');
             answers[qid] = btn.dataset.value;
 
-            // Показываем/скрываем поле "Другое"
             const otherInput = document.querySelector(`[data-qid="${qid}-other"]`);
             if (otherInput) {
                 if (btn.dataset.value.includes('Другое') || btn.dataset.value.includes('Свой вариант')) {
-                    otherInput.style.display = 'block';
+                    otherInput.classList.add('visible');
                     if (otherInput.value) answers[qid] = otherInput.value;
                 } else {
-                    otherInput.style.display = 'none';
+                    otherInput.classList.remove('visible');
+                    otherInput.value = '';
                 }
             }
-            checkScreenCompletion(getCurrentScreenIndex());
+            checkCurrentScreen();
         }
 
-        function updateOtherSingle(qid) {
+        function updateOtherForSingle(qid) {
             const otherInput = document.querySelector(`[data-qid="${qid}-other"]`);
+            const parent = document.querySelector(`[data-qid="${qid}"][data-type="single"]`);
             if (otherInput && otherInput.value) {
                 answers[qid] = otherInput.value;
+                if (parent) {
+                    parent.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+                }
             }
-            checkScreenCompletion(getCurrentScreenIndex());
+            checkCurrentScreen();
         }
 
         function selectMulti(btn, qid, maxSelect) {
             const parent = btn.parentElement;
-            const selected = parent.querySelectorAll('.quiz-option.selected');
             if (btn.classList.contains('selected')) {
                 btn.classList.remove('selected');
             } else {
-                if (selected.length >= maxSelect && maxSelect > 0) {
-                    // Убираем первый выбранный
+                const selected = parent.querySelectorAll('.quiz-option.selected');
+                if (maxSelect && selected.length >= maxSelect) {
                     selected[0].classList.remove('selected');
                 }
                 btn.classList.add('selected');
             }
-            const allSelected = parent.querySelectorAll('.quiz-option.selected');
-            answers[qid] = Array.from(allSelected).map(o => o.dataset.value).join(', ');
+            updateMultiAnswer(qid);
+        }
 
-            // Поле "Другое"
+        function updateMultiAnswer(qid) {
+            const parent = document.querySelector(`[data-qid="${qid}"][data-type="multi"]`);
+            const allSelected = parent ? parent.querySelectorAll('.quiz-option.selected') : [];
+            let value = Array.from(allSelected).map(o => o.dataset.value).join(', ');
+
             const otherInput = document.querySelector(`[data-qid="${qid}-other"]`);
             if (otherInput) {
                 const hasOther = Array.from(allSelected).some(o =>
                     o.dataset.value.includes('Другое') || o.dataset.value.includes('Свой вариант')
                 );
-                otherInput.style.display = hasOther ? 'block' : 'none';
-                if (hasOther && otherInput.value) {
-                    answers[qid] = (answers[qid] || '') + ' | Свой вариант: ' + otherInput.value;
+                if (hasOther) {
+                    otherInput.classList.add('visible');
+                } else {
+                    otherInput.classList.remove('visible');
+                }
+                if (otherInput.value) {
+                    value = value ? value + ' | Свой вариант: ' + otherInput.value : otherInput.value;
                 }
             }
-            checkScreenCompletion(getCurrentScreenIndex());
+            answers[qid] = value || '';
+            checkCurrentScreen();
         }
 
-        function updateMultiOther(qid) {
-            const otherInput = document.querySelector(`[data-qid="${qid}-other"]`);
-            if (otherInput && otherInput.value) {
-                const current = answers[qid] || '';
-                if (!current.includes('Свой вариант:')) {
-                    answers[qid] = current + ' | Свой вариант: ' + otherInput.value;
-                } else {
-                    answers[qid] = current.replace(/Свой вариант:.*/, 'Свой вариант: ' + otherInput.value);
-                }
+        function updateOtherForMulti(qid) {
+            updateMultiAnswer(qid);
+        }
+
+        function onDateChange(input) {
+            const qid = input.dataset.qid;
+            answers[qid] = input.value;
+            if (qid === 'q15_birthday' && input.value) {
+                showAgeDifference(input.value);
             }
-            checkScreenCompletion(getCurrentScreenIndex());
+            checkCurrentScreen();
+        }
+
+        function showAgeDifference(dateStr) {
+            const birthDate = new Date(dateStr);
+            const ageDiffDiv = document.getElementById('ageDiff');
+            if (!ageDiffDiv || isNaN(birthDate.getTime())) return;
+
+            const diffMs = birthDate.getTime() - MY_BIRTHDAY.getTime();
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const diffYears = Math.abs(Math.floor(diffDays / 365.25));
+            const remainingDays = Math.abs(diffDays) % 365;
+
+            let message = '';
+            if (diffDays === 0) {
+                message = '😲 Мы родились в один день! Это судьба!';
+            } else if (diffDays > 0) {
+                message = `Ты старше меня на ${diffYears} ${getYearWord(diffYears)} и ${remainingDays} ${getDayWord(remainingDays)} 👑`;
+            } else {
+                const absDays = Math.abs(diffDays);
+                const absYears = Math.abs(Math.floor(absDays / 365.25));
+                const absRemaining = absDays % 365;
+                message = `Ты младше меня на ${absYears} ${getYearWord(absYears)} и ${absRemaining} ${getDayWord(absRemaining)} 🌸`;
+            }
+            ageDiffDiv.textContent = message;
+            ageDiffDiv.classList.add('visible');
+        }
+
+        function getYearWord(years) {
+            if (years % 10 === 1 && years % 100 !== 11) return 'год';
+            if ([2, 3, 4].includes(years % 10) && ![12, 13, 14].includes(years % 100)) return 'года';
+            return 'лет';
+        }
+
+        function getDayWord(days) {
+            if (days % 10 === 1 && days % 100 !== 11) return 'день';
+            if ([2, 3, 4].includes(days % 10) && ![12, 13, 14].includes(days % 100)) return 'дня';
+            return 'дней';
         }
 
         // Отслеживание текстовых полей
@@ -690,145 +749,128 @@
                 if (qid && !qid.includes('-other')) {
                     answers[qid] = e.target.value;
                 }
-                checkScreenCompletion(getCurrentScreenIndex());
-            }
-            if (e.target.type === 'date') {
-                const qid = e.target.dataset.qid;
-                if (qid) {
-                    answers[qid] = e.target.value;
-                }
-                checkScreenCompletion(getCurrentScreenIndex());
+                checkCurrentScreen();
             }
         });
 
         function getCurrentScreenIndex() {
             const activeScreen = document.querySelector('.screen.active');
-            if (!activeScreen) return 0;
+            if (!activeScreen || activeScreen.id === 'screen-final') return 0;
             const id = activeScreen.id;
-            return parseInt(id.split('-')[1]);
+            const idx = parseInt(id.split('-')[1]);
+            return isNaN(idx) ? 0 : idx;
         }
 
-        function checkScreenCompletion(screenIdx) {
+        function checkCurrentScreen() {
+            const screenIdx = getCurrentScreenIndex();
             const screenData = quizData[screenIdx];
+            if (!screenData) return;
             let allAnswered = true;
 
             screenData.questions.forEach(q => {
-                if (q.type === 'single') {
-                    if (!answers[q.id]) allAnswered = false;
-                } else if (q.type === 'multi') {
-                    if (!answers[q.id] || answers[q.id].trim() === '') allAnswered = false;
-                } else if (q.type === 'text') {
-                    if (!answers[q.id] || answers[q.id].trim() === '') allAnswered = false;
-                } else if (q.type === 'date') {
-                    if (!answers[q.id]) allAnswered = false;
-                }
+                const val = answers[q.id];
+                if (!val || val.trim() === '') allAnswered = false;
             });
 
             const nextBtn = document.getElementById('btnNext-' + screenIdx);
             const submitBtn = document.getElementById('btnSubmit');
             if (nextBtn) nextBtn.disabled = !allAnswered;
             if (submitBtn) submitBtn.disabled = !allAnswered;
-
-            // Обновляем прогресс
-            updateProgress(screenIdx, allAnswered);
+            updateProgress();
         }
 
-        function updateProgress(screenIdx, screenComplete) {
+        function updateProgress() {
             let completed = 0;
-            for (let i = 0; i < totalScreens; i++) {
-                if (i < screenIdx) completed += quizData[i].questions.length;
-                else if (i === screenIdx && screenComplete) completed += quizData[i].questions.length;
-                else if (i === screenIdx) {
-                    // Считаем отвеченные на текущем экране
-                    const screenData = quizData[i];
-                    screenData.questions.forEach(q => {
-                        if (answers[q.id] && answers[q.id].trim() !== '') completed++;
-                    });
-                }
-            }
+            quizData.forEach((screen, idx) => {
+                screen.questions.forEach(q => {
+                    if (answers[q.id] && answers[q.id].trim() !== '') completed++;
+                });
+            });
             const percent = Math.round((completed / totalQuestions) * 100);
             document.getElementById('progressFill').style.width = percent + '%';
             document.getElementById('progressLabel').textContent =
                 `Прогресс: ${percent}% (вопросов отвечено: ${completed} из ${totalQuestions})`;
         }
 
-        // ===== НАВИГАЦИЯ =====
         function showScreen(index) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             const screen = document.getElementById('screen-' + index);
             if (screen) screen.classList.add('active');
+            const finalScreen = document.getElementById('screen-final');
+            if (finalScreen) finalScreen.classList.remove('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function nextScreen(currentIdx) {
             if (currentIdx < totalScreens - 1) {
                 showScreen(currentIdx + 1);
-                // Автоматически отключаем кнопку на новом экране
-                const nextBtn = document.getElementById('btnNext-' + (currentIdx + 1));
-                if (nextBtn) nextBtn.disabled = true;
-                const submitBtn = document.getElementById('btnSubmit');
-                if (submitBtn) submitBtn.disabled = true;
-                updateProgressOnScreenChange(currentIdx + 1);
+                checkCurrentScreen();
             }
         }
 
         function prevScreen(currentIdx) {
             if (currentIdx > 0) {
                 showScreen(currentIdx - 1);
-                updateProgressOnScreenChange(currentIdx - 1);
+                checkCurrentScreen();
             }
         }
 
-        function updateProgressOnScreenChange(screenIdx) {
-            const screenData = quizData[screenIdx];
-            let completed = 0;
-            for (let i = 0; i < screenIdx; i++) {
-                completed += quizData[i].questions.length;
-            }
-            screenData.questions.forEach(q => {
-                if (answers[q.id] && answers[q.id].trim() !== '') completed++;
-            });
-            const percent = Math.round((completed / totalQuestions) * 100);
-            document.getElementById('progressFill').style.width = percent + '%';
-            document.getElementById('progressLabel').textContent =
-                `Прогресс: ${percent}% (вопросов отвечено: ${completed} из ${totalQuestions})`;
-        }
-
-        // ===== ОТПРАВКА =====
+        // ===== ОТПРАВКА ФОРМЫ =====
         function submitForm() {
-            const form = document.getElementById('hiddenForm');
-            // Очищаем предыдущие поля
-            form.querySelectorAll('input:not([type=hidden])').forEach(el => el.remove());
+            const submitBtn = document.getElementById('btnSubmit');
+            const overlay = document.getElementById('sendingOverlay');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправляю... 💫';
+            overlay.classList.add('visible');
 
-            // Добавляем все ответы
+            // Собираем данные
+            const formData = new FormData();
+            formData.append('_subject', 'Новая анкета! 💌');
             for (const [key, value] of Object.entries(answers)) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = value || '';
-                form.appendChild(input);
+                formData.append(key, value || '(не указано)');
             }
 
-            // Отправляем через fetch
-            const formData = new FormData(form);
-            fetch(form.action, {
+            // Пробуем через fetch
+            fetch('https://formspree.io/f/mlgyornw', {
                 method: 'POST',
                 body: formData,
                 headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                // Показываем финал в любом случае
-                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-                document.getElementById('screen-final').classList.add('active');
-                document.getElementById('progressFill').style.width = '100%';
-                document.getElementById('progressLabel').textContent = 'Готово! 🎉';
-                setTimeout(() => launchFireworks(), 500);
-            }).catch(() => {
-                document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-                document.getElementById('screen-final').classList.add('active');
-                document.getElementById('progressFill').style.width = '100%';
-                document.getElementById('progressLabel').textContent = 'Готово! 🎉';
-                setTimeout(() => launchFireworks(), 500);
+            })
+            .then(response => {
+                console.log('Formspree response:', response.status);
+                showFinalScreen();
+            })
+            .catch(error => {
+                console.warn('Fetch не сработал, пробуем запасной метод:', error);
+                // Запасной метод: создаём временную форму и отправляем
+                const tempForm = document.createElement('form');
+                tempForm.method = 'POST';
+                tempForm.action = 'https://formspree.io/f/mlgyornw';
+                tempForm.target = '_blank';
+                tempForm.style.display = 'none';
+                for (const [key, value] of Object.entries(answers)) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = key;
+                    input.value = value || '(не указано)';
+                    tempForm.appendChild(input);
+                }
+                document.body.appendChild(tempForm);
+                tempForm.submit();
+                document.body.removeChild(tempForm);
+                // Показываем финал с небольшой задержкой
+                setTimeout(showFinalScreen, 1500);
             });
+        }
+
+        function showFinalScreen() {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen-final').classList.add('active');
+            document.getElementById('sendingOverlay').classList.remove('visible');
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressLabel').textContent = 'Готово! 🎉';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => launchFireworks(), 500);
         }
 
         // ===== САЛЮТ =====
@@ -918,8 +960,9 @@
             }
         });
 
-        // Инициализация прогресса
-        updateProgress(0, false);
+        updateProgress();
+        console.log('Анкета готова! Formspree ID: mlgyornw');
+        console.log('Если письма не приходят — проверь подтверждение email в Formspree (папка Спам)');
     </script>
 </body>
 </html>
